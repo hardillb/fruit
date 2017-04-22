@@ -51,15 +51,17 @@ public class FruitDetailFragment extends Fragment {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-            Log.i("Details", FruitBasket.getTypes().toString());
             mItem = FruitBasket.getDetails(getArguments().getString(ARG_ITEM_ID));
-            Log.i("Details",getArguments().getString(ARG_ITEM_ID));
-            Log.i("Details", "" + mItem);
 
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null) {
                 appBarLayout.setTitle(mItem.getType());
+            } else {
+                TextView tv = ((TextView)activity.findViewById(R.id.foo));
+                if (tv != null) {
+                    tv.setText(mItem.getType());
+                }
             }
         }
     }

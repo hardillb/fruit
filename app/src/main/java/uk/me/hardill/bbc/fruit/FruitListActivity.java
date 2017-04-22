@@ -2,6 +2,7 @@ package uk.me.hardill.bbc.fruit;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 
@@ -113,8 +115,6 @@ public class FruitListActivity extends AppCompatActivity {
                         logger.endLoad();
                         FruitBasket.parseData(response);
                         viewAdapter.mValues = FruitBasket.getTypes();
-                        Log.i("getFruit", FruitBasket.getTypes().toString());
-                        Log.i("getFruit", FruitBasket.getDetails(FruitBasket.getTypes().get(0)).toString());
                         viewAdapter.notifyDataSetChanged();
                     }
                 },
@@ -128,24 +128,6 @@ public class FruitListActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
 
     }
-
-//    private void getFruits2(){
-//        RequestQueue requestQueue = Volley.newRequestQueue(this);
-//        String url = "https://raw.githubusercontent.com/fmtvp/recruit-test-data/master/data.json";
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,
-//                new Response.Listener<JSONObject>(){
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//
-//                    }
-//                },
-//                new Response.ErrorListener(){
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//
-//                    }
-//                });
-//    }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         viewAdapter = new SimpleItemRecyclerViewAdapter(new ArrayList<String>());
@@ -169,7 +151,7 @@ public class FruitListActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
+        public void onBindViewHolder(final ViewHolder holder, final int position) {
             holder.mItem = mValues.get(position);
             holder.mContentView.setText(mValues.get(position));
 
@@ -204,14 +186,13 @@ public class FruitListActivity extends AppCompatActivity {
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             public final View mView;
-            public final TextView mIdView;
+            //public final TextView mIdView;
             public final TextView mContentView;
             public String mItem;
 
             public ViewHolder(View view) {
                 super(view);
                 mView = view;
-                mIdView = (TextView) view.findViewById(R.id.id);
                 mContentView = (TextView) view.findViewById(R.id.content);
             }
 

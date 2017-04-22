@@ -28,7 +28,6 @@ public class FruitBasket {
      * Returns null if not found
      */
     public static Fruit getDetails(String type) {
-        Log.i("getDetails", "" + basket.keySet().toString());
         return basket.get(type);
     }
 
@@ -45,7 +44,6 @@ public class FruitBasket {
                 JSONObject fruitData = fruits.getJSONObject(i);
                 Fruit fruit = new Fruit(fruitData.getString("type"), fruitData.getInt("price"), fruitData.getInt("weight"));
                 newBasket.put(fruit.getType(), fruit);
-                Log.i("Basket", "Added " + fruit.getType());
             }
             basket = newBasket;
         } catch (JSONException exp) {
